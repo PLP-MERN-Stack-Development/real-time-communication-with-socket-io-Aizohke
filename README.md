@@ -1,77 +1,287 @@
-# Real-Time Chat Application with Socket.io
+# Ping ChatAPP
 
-This assignment focuses on building a real-time chat application using Socket.io, implementing bidirectional communication between clients and server.
+A full-stack real-time communication application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and Socket.IO, enabling instant bidirectional communication between users.
 
-## Assignment Overview
+## 🚀 Live Demo
 
-You will build a chat application with the following features:
-1. Real-time messaging using Socket.io
-2. User authentication and presence
-3. Multiple chat rooms or private messaging
-4. Real-time notifications
-5. Advanced features like typing indicators and read receipts
+**[View Live Application](https://pingchatapp.netlify.app/)**
 
-## Project Structure
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Socket Events](#socket-events)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## ✨ Features
+
+- **Real-Time Messaging**: Instant message delivery using Socket.IO
+- **User Authentication**: Secure login and registration system
+- **Online Status**: View which users are currently online
+- **Message History**: Persistent message storage in MongoDB
+- **Typing Indicators**: See when other users are typing
+- **Read Receipts**: Track message delivery and read status
+- **Responsive Design**: Mobile-friendly interface
+- **User Profiles**: Customizable user profiles with avatars
+- **Private Conversations**: One-to-one messaging capability
+- **Group Chat**: Create and join group conversations
+- **Message Notifications**: Real-time alerts for new messages
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React.js** - UI library for building interactive interfaces
+- **Socket.IO Client** - Real-time bidirectional communication
+- **Axios** - HTTP client for API requests
+- **React Router** - Navigation and routing
+- **CSS3/Tailwind CSS** - Styling and responsive design
+
+### Backend
+- **Node.js** - JavaScript runtime environment
+- **Express.js** - Web application framework
+- **Socket.IO** - Real-time event-based communication
+- **MongoDB** - NoSQL database for data persistence
+- **Mongoose** - MongoDB object modeling
+- **JWT** - JSON Web Tokens for authentication
+- **bcrypt** - Password hashing
+
+### Additional Tools
+- **CORS** - Cross-Origin Resource Sharing
+- **dotenv** - Environment variable management
+- **Nodemon** - Development server auto-restart
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v14.0.0 or higher)
+- **npm** or **yarn**
+- **MongoDB** (local installation or MongoDB Atlas account)
+- **Git**
+
+## 🔧 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/PLP-MERN-Stack-Development/real-time-communication-with-socket-io-Aizohke.git
+   cd real-time-communication-with-socket-io-Aizohke
+   ```
+
+2. **Install server dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
+
+3. **Install client dependencies**
+   ```bash
+   cd ../client
+   npm install
+   ```
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the **server** directory with the following variables:
+
+```env
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/realtime-chat
+# OR for MongoDB Atlas:
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database-name
+
+# JWT Secret
+JWT_SECRET=your_jwt_secret_key_here
+
+# Client URL (for CORS)
+CLIENT_URL=http://localhost:3000
+
+# Optional: File Upload (if using Cloudinary)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+Create a `.env` file in the **client** directory:
+
+```env
+REACT_APP_API_URL=http://localhost:5000
+REACT_APP_SOCKET_URL=http://localhost:5000
+```
+
+## 🚀 Running the Application
+
+### Development Mode
+
+1. **Start MongoDB** (if running locally)
+   ```bash
+   mongod
+   ```
+
+2. **Start the backend server**
+   ```bash
+   cd server
+   npm run dev
+   # or
+   npm start
+   ```
+
+3. **Start the frontend (in a new terminal)**
+   ```bash
+   cd client
+   npm start
+   ```
+
+4. **Access the application**
+   - Frontend: `http://localhost:3000`
+   - Backend API: `http://localhost:5000`
+
+### Production Build
+
+```bash
+# Build the client
+cd client
+npm run build
+
+# Start the production server
+cd ../server
+npm start
+```
+
+## 📁 Project Structure
 
 ```
-socketio-chat/
-├── client/                 # React front-end
-│   ├── public/             # Static files
-│   ├── src/                # React source code
-│   │   ├── components/     # UI components
-│   │   ├── context/        # React context providers
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── pages/          # Page components
-│   │   ├── socket/         # Socket.io client setup
-│   │   └── App.jsx         # Main application component
-│   └── package.json        # Client dependencies
-├── server/                 # Node.js back-end
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Socket event handlers
-│   ├── models/             # Data models
-│   ├── socket/             # Socket.io server setup
-│   ├── utils/              # Utility functions
-│   ├── server.js           # Main server file
-│   └── package.json        # Server dependencies
-└── README.md               # Project documentation
+real-time-communication-with-socket-io-Aizohke/
+├── client/                   # React frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── components/       # React components
+│   │   ├── pages/           # Page components
+│   │   ├── services/        # API services
+│   │   ├── context/         # Context API
+│   │   ├── utils/           # Utility functions
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── .env
+│
+├── server/                   # Node.js backend
+│   ├── config/              # Configuration files
+│   ├── controllers/         # Route controllers
+│   ├── models/              # Mongoose models
+│   ├── routes/              # API routes
+│   ├── middleware/          # Custom middleware
+│   ├── socket/              # Socket.IO logic
+│   ├── utils/               # Helper functions
+│   ├── server.js            # Entry point
+│   ├── package.json
+│   └── .env
+│
+└── README.md
 ```
 
-## Getting Started
+## 🔌 API Endpoints
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week5-Assignment.md` file
-4. Complete the tasks outlined in the assignment
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/verify` - Verify JWT token
 
-## Files Included
+### Users
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get user by ID
+- `PUT /api/users/:id` - Update user profile
+- `POST /api/users/avatar` - Upload user avatar
 
-- `Week5-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Socket.io configuration templates
-  - Sample components for the chat interface
+### Messages
+- `GET /api/messages/:conversationId` - Get messages by conversation
+- `POST /api/messages` - Send a new message
+- `PUT /api/messages/:id/read` - Mark message as read
+- `DELETE /api/messages/:id` - Delete a message
 
-## Requirements
+### Conversations
+- `GET /api/conversations` - Get user's conversations
+- `POST /api/conversations` - Create new conversation
+- `GET /api/conversations/:id` - Get conversation by ID
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Modern web browser
-- Basic understanding of React and Express
+## 📡 Socket Events
 
-## Submission
+### Client → Server
+- `join` - Join a conversation room
+- `leave` - Leave a conversation room
+- `send_message` - Send a message
+- `typing` - User is typing
+- `stop_typing` - User stopped typing
+- `mark_read` - Mark messages as read
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+### Server → Client
+- `receive_message` - Receive new message
+- `user_online` - User came online
+- `user_offline` - User went offline
+- `typing_indicator` - Show typing indicator
+- `message_read` - Message read confirmation
+- `error` - Error notification
 
-1. Complete both the client and server portions of the application
-2. Implement the core chat functionality
-3. Add at least 3 advanced features
-4. Document your setup process and features in the README.md
-5. Include screenshots or GIFs of your working application
-6. Optional: Deploy your application and add the URLs to your README.md
+## 📸 Screenshots
 
-## Resources
+### Login Page
+<img width="1365" height="718" alt="image" src="https://github.com/user-attachments/assets/e8067796-859b-4394-9893-2a0eb4a718d7" />
 
-- [Socket.io Documentation](https://socket.io/docs/v4/)
+
+### Chat Interface
+<img width="1363" height="762" alt="image" src="https://github.com/user-attachments/assets/b12d65a9-441e-4440-b717-5d4325ce879d" />
+
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Aizohke**
+
+- GitHub: [@Aizohke](https://github.com/Aizohke)
+- Project Link: [https://github.com/PLP-MERN-Stack-Development/real-time-communication-with-socket-io-Aizohke](https://github.com/PLP-MERN-Stack-Development/real-time-communication-with-socket-io-Aizohke)
+
+## 🙏 Acknowledgments
+
+- [Socket.IO Documentation](https://socket.io/docs/)
+- [MongoDB Documentation](https://docs.mongodb.com/)
 - [React Documentation](https://react.dev/)
 - [Express.js Documentation](https://expressjs.com/)
-- [Building a Chat Application with Socket.io](https://socket.io/get-started/chat) 
+- PLP MERN Stack Development Program
+
+---
+
+⭐ If you found this project helpful, please give it a star!
+
+## 📞 Support
+
+For support, email mathengeisaac04@gmail.com or open an issue in the repository.
+
+---
+
+**Made with ❤️ by Aizohke**
